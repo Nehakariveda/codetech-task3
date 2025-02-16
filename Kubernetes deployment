@@ -1,0 +1,87 @@
+Kubernetes Deployment is a resource used to manage and scale containerized applications automatically. It allows you to define how many replicas of a pod should run and enables rolling updates, rollbacks, and self-healing of pods.
+
+Key Features of Deployments
+
+Declarative Updates: You define the desired state, and Kubernetes ensures that the actual state matches it.
+
+Scaling: Easily scale applications up or down by changing the number of replicas.
+
+Rolling Updates: Update applications with zero downtime.
+
+Rollbacks: Revert to a previous version if an update fails.
+
+Self-healing: Kubernetes automatically replaces failed pods.
+
+
+
+---
+
+Example of a Deployment YAML File
+
+This example creates a deployment for an Nginx application with three replicas.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+
+
+---
+
+Deploying to Kubernetes
+
+1. Apply the deployment:
+
+kubectl apply -f deployment.yaml
+
+
+2. Check the deployment status:
+
+kubectl get deployments
+
+
+3. View the running pods:
+
+kubectl get pods
+
+
+4. Scale the deployment:
+
+kubectl scale deployment nginx-deployment --replicas=5
+
+
+5. Update the deployment (e.g., change image version):
+
+kubectl set image deployment/nginx-deployment nginx=nginx:1.21
+
+
+6. Rollback if needed:
+
+kubectl rollout undo deployment/nginx-deployment
+
+
+7. Delete the deployment:
+
+kubectl delete deployment nginx-deployment
+
+
+
+
+---
+
+Do you need help with anything specific, like troubleshooting, advanced deployment strategies, or setting up a production-ready environment?
